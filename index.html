@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags for proper encoding and viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloom Board — Job Application Tracker</title>
+  
+  <!-- External dependencies (Icons, Fonts, Charts) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Caveat:wght@600&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  
+  <!-- Local stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Main content container -->
+<div class="content">
+  
+  <!-- ============================================
+       HEADER SECTION - Branding & Title
+       ============================================ -->
+  <div class="header-wrap">
+    <!-- Decorative vine SVG element -->
+    <svg class="vine-corner" viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="vineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#7A9159;stop-opacity:0.5" />
+          <stop offset="100%" style="stop-color:#A8C08A;stop-opacity:0.3" />
+        </linearGradient>
+      </defs>
+      <path d="M 110 130 Q 90 110 80 85 Q 70 60 75 35 Q 80 15 65 10 Q 55 8 50 20" stroke="url(#vineGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="110" cy="130" r="3" fill="#A8C08A" opacity="0.6"/>
+      <ellipse cx="85" cy="75" rx="4" ry="6" fill="#A8C08A" opacity="0.5" transform="rotate(-30 85 75)"/>
+      <ellipse cx="75" cy="50" rx="4" ry="6" fill="#A8C08A" opacity="0.5" transform="rotate(20 75 50)"/>
+      <ellipse cx="70" cy="30" rx="4" ry="6" fill="#A8C08A" opacity="0.5" transform="rotate(-40 70 30)"/>
+    </svg>
+    <h1>Bloom Board</h1>
+    <p class="tagline">wherever the search takes you, keep it pretty ✿</p>
+  </div>
+
+  <!-- Tagline / Description -->
+  <p class="sub">Track your job applications with <strong>botanical grace.</strong> Paste job descriptions, watch them auto-parse, and organize by status.</p>
+
+  <!-- ============================================
+       TOP BAR - Controls & Toggles
+       ============================================ -->
+  <div class="top-bar">
+    <!-- Search and Filters -->
+    <div class="toolbar">
+      <!-- Search input with icon -->
+      <div class="search-box">
+        <i class="ti ti-search" aria-hidden="true"></i>
+        <input type="text" id="searchInput" placeholder="Search by title, company, or location..." onkeyup="filterJobs()">
+      </div>
+      <!-- Filter chips for quick filtering -->
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="filter-chip active" onclick="filterJobs('all')">All</button>
+        <button class="filter-chip" onclick="filterJobs('priority')">Priority</button>
+        <button class="filter-chip" onclick="filterJobs('followup')">Follow-up</button>
+      </div>
+    </div>
+    <!-- View toggles and dark mode -->
+    <div class="view-controls">
+      <!-- Board / Analytics toggle -->
+      <div class="view-toggle">
+        <button class="view-btn active" onclick="switchView('board')">📋 Board</button>
+        <button class="view-btn" onclick="switchView('analytics')">📊 Analytics</button>
+      </div>
+      <!-- Dark mode toggle -->
+      <button class="dark-toggle" onclick="toggleDarkMode()"><span id="modeIcon">🌙</span> Mode</button>
+    </div>
+  </div>
+
+  <!-- ============================================
+       STATISTICS STRIP - Key Metrics
+       ============================================ -->
+  <div class="stats-strip">
+    <div class="stat">
+      <div class="stat-label">Applied</div>
+      <div class="stat-number" id="stat-applied">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Interviews</div>
+      <div class="stat-number" id="stat-interview">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Rejected</div>
+      <div class="stat-number" id="stat-rejected">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Interview Rate</div>
+      <div class="stat-number" id="stat-rate">0%</div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       BOARD VIEW - Main kanban interface
+       ============================================ -->
+  <div id="boardView" class="board-view active">
+    
+    <!-- Add Job Panel -->
+    <div class="add-panel">
+      <div class="panel-label"><i class="ti ti-sparkles"></i> Add a job</div>
+      
+      <!-- Main textarea for pasting job descriptions -->
+      <label>Paste job description or details</label>
+      <textarea id="jobDescInput" placeholder="Paste job description to auto-detect title, company, and location..." style="min-height: 80px;"></textarea>
+      
+      <!-- Auto-detection preview message -->
+      <div class="parse-preview" id="parsePreview"></div>
+
+      <!-- Basic job information inputs -->
+      <div class="row">
+        <div>
+          <label>Job Title</label>
+          <input type="text" id="titleInput" placeholder="e.g. Senior Product Manager">
+        </div>
+        <div>
+          <label>Company</label>
+          <input type="text" id="companyInput" placeholder="e.g. Figma">
+        </div>
+        <div>
+          <label>Job Link</label>
+          <input type="text" id="linkInput" placeholder="https://...">
+        </div>
+      </div>
+
+      <!-- Location input -->
+      <div class="row">
+        <div>
+          <label>Location</label>
+          <input type="text" id="locationInput" placeholder="e.g. San Francisco, CA">
+        </div>
+      </div>
+
+      <!-- Advanced fields (salary, follow-up date, notes) - hidden by default -->
+      <div id="advancedFields" style="display: none;">
+        <div class="row">
+          <div>
+            <label>Salary Range</label>
+            <input type="text" id="salaryInput" placeholder="e.g. $120k - $160k">
+          </div>
+          <div>
+            <label>Follow-up Date</label>
+            <input type="date" id="followUpInput">
+          </div>
+        </div>
+        <div>
+          <label>Notes</label>
+          <textarea id="notesInput" placeholder="Referrer, interview date, interesting details..." style="min-height: 60px;"></textarea>
+        </div>
+      </div>
+
+      <!-- Form action buttons -->
+      <button class="toggle-advanced" onclick="toggleAdvanced()">+ Advanced options</button>
+      <button class="add-job-btn" onclick="addJobFromDesc()">Add Job</button>
+    </div>
+
+    <!-- Kanban Board: Three columns for job statuses -->
+    <div class="board">
+      <!-- Column 1: Applied jobs -->
+      <div class="col applied">
+        <h2><span><i class="ti ti-sun" aria-hidden="true"></i> Applied</span><span class="count" id="count-applied">0</span></h2>
+        <div id="col-applied"></div>
+      </div>
+      
+      <!-- Column 2: Interview jobs -->
+      <div class="col interview">
+        <h2><span><i class="ti ti-users" aria-hidden="true"></i> Interview</span><span class="count" id="count-interview">0</span></h2>
+        <div id="col-interview"></div>
+      </div>
+      
+      <!-- Column 3: Rejected jobs -->
+      <div class="col rejected">
+        <h2><span><i class="ti ti-leaf" aria-hidden="true"></i> Rejected</span><span class="count" id="count-rejected">0</span></h2>
+        <div id="col-rejected"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       ANALYTICS VIEW - Charts and Data Management
+       ============================================ -->
+  <div id="analyticsView" class="analytics-view">
+    
+    <!-- Charts grid -->
+    <div class="chart-grid">
+      
+      <!-- Weekly applications bar chart -->
+      <div class="chart-card">
+        <h3>📊 Applications This Week</h3>
+        <div class="chart-container">
+          <canvas id="weeklyChart"></canvas>
+        </div>
+      </div>
+      
+      <!-- Funnel chart: Applied vs Interviewed -->
+      <div class="chart-card">
+        <h3>🎯 Application Funnel</h3>
+        <div class="chart-container">
+          <canvas id="funnelChart"></canvas>
+        </div>
+      </div>
+      
+      <!-- Top locations pie chart -->
+      <div class="chart-card">
+        <h3>📍 Top Locations</h3>
+        <div class="chart-container">
+          <canvas id="locationsChart"></canvas>
+        </div>
+      </div>
+      
+      <!-- Status breakdown pie chart -->
+      <div class="chart-card">
+        <h3>📈 Status Breakdown</h3>
+        <div class="chart-container">
+          <canvas id="statusChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Export and import data controls -->
+    <div class="export-section">
+      <button class="export-btn" onclick="exportData()"><i class="ti ti-download" aria-hidden="true"></i> Export as JSON</button>
+      <button class="export-btn" onclick="exportCSV()"><i class="ti ti-file-text" aria-hidden="true"></i> Export as CSV</button>
+      <button class="import-btn" onclick="document.getElementById('importFile').click()"><i class="ti ti-upload" aria-hidden="true"></i> Import Data</button>
+      <input id="importFile" type="file" accept=".json" onchange="importData(event)">
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================
+     FALLING SAKURA PETALS ANIMATION
+     ============================================ -->
+<script>
+  // Create falling petal animation
+  const petalSvg = `<svg width="34" height="34" viewBox="0 0 20 20"><path d="M10 2C13 2 14 6 10 10C6 6 7 2 10 2Z" fill="#F6B8CE" opacity="0.9"/></svg>`;
+  
+  // Generate 20 petals with randomized properties
+  for (let i = 0; i < 20; i++) {
+    const el = document.createElement('div');
+    el.className = 'petal';
+    el.innerHTML = petalSvg;
+    
+    // Random horizontal start position
+    el.style.left = Math.random() * 100 + 'vw';
+    
+    // Random petal size
+    const size = 22 + Math.random() * 20;
+    el.style.width = size + 'px';
+    
+    // Random rotation
+    el.style.transform = `rotate(${Math.random()*360}deg)`;
+    
+    // Random animation duration
+    el.style.animationDuration = (11 + Math.random() * 10) + 's';
+    
+    // Random animation delay
+    el.style.animationDelay = (Math.random() * 14) + 's';
+    
+    // Random horizontal drift during fall
+    el.style.setProperty('--drift', (Math.random() > 0.5 ? 1 : -1) * (40 + Math.random()*70) + 'px');
+    
+    document.body.appendChild(el);
+  }
+</script>
+
+<!-- Load JavaScript functionality -->
+<script src="script.js"></script>
+
+</body>
+</html>
