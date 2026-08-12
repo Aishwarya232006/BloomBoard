@@ -1,179 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Meta tags for proper encoding and viewport -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bloom Board — Job Application Tracker</title>
-  
-  <!-- External dependencies (Icons, Fonts, Charts) -->
+  <title>Bloom Board — Job Tracker</title>
+  <!-- Icons, Fonts, Chart.js -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Caveat:wght@600&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-  
-  <!-- Local stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Main content container -->
 <div class="content">
-  
-  <!-- ============================================
-       HEADER SECTION - Branding & Title
-       ============================================ -->
+
+  <!-- ═══════════════════════════════════
+       HEADER — Branding, vine, sunflowers
+       ═══════════════════════════════════ -->
   <div class="header-wrap">
-    <!-- Decorative vine SVG element -->
-    <svg class="vine-corner" viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <!-- Vine corner with 2 sunflowers + lavender sprig -->
+    <svg class="vine-corner" viewBox="0 0 130 140" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id="vineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#7A9159;stop-opacity:0.5" />
-          <stop offset="100%" style="stop-color:#A8C08A;stop-opacity:0.3" />
+        <radialGradient id="petalGrad" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#FFE28A"/>
+          <stop offset="55%" stop-color="#F7B733"/>
+          <stop offset="100%" stop-color="#D98A1E"/>
+        </radialGradient>
+        <radialGradient id="centerGrad" cx="40%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#7A4A1E"/>
+          <stop offset="70%" stop-color="#4A2E12"/>
+          <stop offset="100%" stop-color="#2E1B0A"/>
+        </radialGradient>
+        <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#A8C08A"/>
+          <stop offset="100%" stop-color="#6E8F52"/>
         </linearGradient>
       </defs>
-      <path d="M 110 130 Q 90 110 80 85 Q 70 60 75 35 Q 80 15 65 10 Q 55 8 50 20" stroke="url(#vineGradient)" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <circle cx="110" cy="130" r="3" fill="#A8C08A" opacity="0.6"/>
-      <ellipse cx="85" cy="75" rx="4" ry="6" fill="#A8C08A" opacity="0.5" transform="rotate(-30 85 75)"/>
-      <ellipse cx="75" cy="50" rx="4" ry="6" fill="#A8C08A" opacity="0.5" transform="rotate(20 75 50)"/>
-      <ellipse cx="70" cy="30" rx="4" ry="6" fill="#A8C08A" opacity="0.5" transform="rotate(-40 70 30)"/>
+      <!-- Vine stems -->
+      <path d="M4 60C2 40 14 18 40 8" stroke="#7C9A5E" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+      <path d="M6 66C0 92 14 118 46 130" stroke="#7C9A5E" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+      <path d="M40 8C58 2 72 10 80 24" stroke="#7C9A5E" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      <!-- Leaves -->
+      <g fill="url(#leafGrad)">
+        <path d="M8 30C2 24 4 12 14 8C16 18 16 26 8 30Z"/>
+        <path d="M2 52C-6 48 -6 36 2 30C8 38 8 46 2 52Z"/>
+        <path d="M4 78C-4 76 -6 64 2 58C10 64 10 72 4 78Z"/>
+        <path d="M12 104C4 104 -2 94 2 84C12 86 16 96 12 104Z"/>
+        <path d="M30 124C22 128 12 122 12 112C22 110 30 116 30 124Z"/>
+        <path d="M58 12C56 4 64 -4 74 -2C74 8 68 14 58 12Z"/>
+        <path d="M78 26C80 18 90 14 98 20C94 28 86 30 78 26Z"/>
+      </g>
+      <!-- Leaf veins -->
+      <g stroke="#587040" stroke-width="0.8" opacity="0.6" fill="none">
+        <path d="M9 10 L9 27"/><path d="M-3 32 L-3 49"/><path d="M-1 60 L-1 76"/>
+      </g>
+      <!-- Large sunflower at bottom -->
+      <g transform="translate(20,116)">
+        <g fill="url(#petalGrad)" stroke="#C4771E" stroke-width="0.4">
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(0)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(30)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(60)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(90)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(120)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(150)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(180)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(210)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(240)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(270)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(300)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(330)"/>
+        </g>
+        <circle r="9" fill="url(#centerGrad)"/>
+        <g fill="#1E1108" opacity="0.55">
+          <circle r=".7" cx="-3" cy="-2"/><circle r=".7" cx="1" cy="-4"/><circle r=".7" cx="4" cy="-1"/>
+          <circle r=".7" cx="-2" cy="2"/><circle r=".7" cx="2" cy="3"/><circle r=".7" cx="-4" cy="1"/>
+          <circle r=".7" cx="0" cy="0"/><circle r=".7" cx="5" cy="2"/><circle r=".7" cx="-1" cy="5"/>
+        </g>
+      </g>
+      <!-- Small sunflower at top -->
+      <g transform="translate(60,20) scale(0.55)">
+        <g fill="url(#petalGrad)" stroke="#C4771E" stroke-width="0.4">
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(0)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(45)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(90)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(135)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(180)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(225)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(270)"/>
+          <ellipse rx="5.5" ry="13" cy="-13" transform="rotate(315)"/>
+        </g>
+        <circle r="9" fill="url(#centerGrad)"/>
+      </g>
+      <!-- Lavender sprig -->
+      <g transform="translate(38,50) rotate(20)">
+        <line x1="0" y1="0" x2="0" y2="30" stroke="#7C9A5E" stroke-width="1.4"/>
+        <ellipse rx="2.4" ry="1.4" cy="0" fill="#C9A6E0"/>
+        <ellipse rx="2.4" ry="1.4" cy="5" fill="#D3B4E8"/>
+        <ellipse rx="2.4" ry="1.4" cy="10" fill="#C9A6E0"/>
+        <ellipse rx="2.4" ry="1.4" cy="15" fill="#D3B4E8"/>
+      </g>
     </svg>
-    <h1>Bloom Board</h1>
-    <p class="tagline">wherever the search takes you, keep it pretty ✿</p>
-  </div>
 
-  <!-- Tagline / Description -->
-  <p class="sub">Track your job applications with <strong>botanical grace.</strong> Paste job descriptions, watch them auto-parse, and organize by status.</p>
-
-  <!-- ============================================
-       TOP BAR - Controls & Toggles
-       ============================================ -->
-  <div class="top-bar">
-    <!-- Search and Filters -->
-    <div class="toolbar">
-      <!-- Search input with icon -->
-      <div class="search-box">
-        <i class="ti ti-search" aria-hidden="true"></i>
-        <input type="text" id="searchInput" placeholder="Search by title, company, or location..." onkeyup="filterJobs()">
+    <!-- Title + view controls -->
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 16px;">
+      <div>
+        <h1>Bloom Board</h1>
+        <p class="tagline">wherever the search takes you, keep it pretty ✿</p>
       </div>
-      <!-- Filter chips for quick filtering -->
-      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <button class="filter-chip active" onclick="filterJobs('all')">All</button>
-        <button class="filter-chip" onclick="filterJobs('priority')">Priority</button>
-        <button class="filter-chip" onclick="filterJobs('followup')">Follow-up</button>
+      <div class="view-controls">
+        <div class="view-toggle">
+          <button class="view-btn active" onclick="switchView('board')">Board</button>
+          <button class="view-btn" onclick="switchView('analytics')">Analytics</button>
+        </div>
+        <button class="dark-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+          <span id="modeIcon">🌙</span>
+        </button>
       </div>
-    </div>
-    <!-- View toggles and dark mode -->
-    <div class="view-controls">
-      <!-- Board / Analytics toggle -->
-      <div class="view-toggle">
-        <button class="view-btn active" onclick="switchView('board')">📋 Board</button>
-        <button class="view-btn" onclick="switchView('analytics')">📊 Analytics</button>
-      </div>
-      <!-- Dark mode toggle -->
-      <button class="dark-toggle" onclick="toggleDarkMode()"><span id="modeIcon">🌙</span> Mode</button>
     </div>
   </div>
 
-  <!-- ============================================
-       STATISTICS STRIP - Key Metrics
-       ============================================ -->
+  <p class="sub">A gentle place to keep track of every application. Paste a link and the posting text, and <strong>the role, company, and location bloom in on their own.</strong></p>
+
+  <!-- ═══════════════════════════
+       TOOLBAR — Search & Filters
+       ═══════════════════════════ -->
+  <div class="toolbar">
+    <div class="search-box">
+      <i class="ti ti-search" aria-hidden="true"></i>
+      <input id="searchInput" placeholder="Search by role or company..." oninput="render()">
+    </div>
+    <div class="filter-chip active" data-filter="all" onclick="setFilter('all', this)">All</div>
+    <div class="filter-chip" data-filter="starred" onclick="setFilter('starred', this)">⭐ Priority</div>
+    <div class="filter-chip" data-filter="followup" onclick="setFilter('followup', this)">📅 Due for follow-up</div>
+    <!-- Clear all jobs button (shown only when jobs exist) -->
+    <button id="clearAllBtn" onclick="clearAllJobs()" style="display:none; margin-left:auto; background:rgba(224,112,154,0.1); border:1px solid rgba(224,112,154,0.3); border-radius:20px; padding:8px 16px; color:#E0709A; font-weight:700; font-size:12.5px; cursor:pointer;">
+      <i class="ti ti-trash" aria-hidden="true"></i> Clear all
+    </button>
+  </div>
+
+  <!-- ════════════════════
+       STATISTICS STRIP
+       ════════════════════ -->
   <div class="stats-strip">
-    <div class="stat">
-      <div class="stat-label">Applied</div>
-      <div class="stat-number" id="stat-applied">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Interviews</div>
-      <div class="stat-number" id="stat-interview">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Rejected</div>
-      <div class="stat-number" id="stat-rejected">0</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Interview Rate</div>
-      <div class="stat-number" id="stat-rate">0%</div>
-    </div>
+    <div class="stat applied"><div class="icn"><i class="ti ti-send" aria-hidden="true"></i></div><div><div class="num" id="stat-applied">0</div><div class="lbl">Applied</div></div></div>
+    <div class="stat interview"><div class="icn"><i class="ti ti-users" aria-hidden="true"></i></div><div><div class="num" id="stat-interview">0</div><div class="lbl">Interview</div></div></div>
+    <div class="stat rejected"><div class="icn"><i class="ti ti-leaf" aria-hidden="true"></i></div><div><div class="num" id="stat-rejected">0</div><div class="lbl">Rejected</div></div></div>
+    <div class="stat rate"><div class="icn"><i class="ti ti-chart-line" aria-hidden="true"></i></div><div><div class="num" id="stat-rate">0%</div><div class="lbl">Interview Rate</div></div></div>
   </div>
 
-  <!-- ============================================
-       BOARD VIEW - Main kanban interface
-       ============================================ -->
+  <!-- ══════════════════════════════════
+       BOARD VIEW — Kanban + Add Panel
+       ══════════════════════════════════ -->
   <div id="boardView" class="board-view active">
-    
-    <!-- Add Job Panel -->
+
+    <!-- Add job panel with auto-parse -->
     <div class="add-panel">
-      <div class="panel-label"><i class="ti ti-sparkles"></i> Add a job</div>
-      
-      <!-- Main textarea for pasting job descriptions -->
-      <label>Paste job description or details</label>
-      <textarea id="jobDescInput" placeholder="Paste job description to auto-detect title, company, and location..." style="min-height: 80px;"></textarea>
-      
-      <!-- Auto-detection preview message -->
-      <div class="parse-preview" id="parsePreview"></div>
+      <div class="panel-label"><i class="ti ti-flower" aria-hidden="true"></i>Plant a new application</div>
 
-      <!-- Basic job information inputs -->
+      <label for="link">Job posting link</label>
+      <input id="link" placeholder="ZipRecruiter, Indeed, LinkedIn, company site...">
+
+      <label for="jdtext">Paste the job description text</label>
+      <textarea id="jdtext" rows="4" placeholder="Select-all + copy the full posting text here..."></textarea>
+
+      <!-- Auto-detection preview -->
+      <div class="parse-preview" id="preview">
+        <i class="ti ti-sparkles" aria-hidden="true"></i>
+        <span id="preview-text"></span>
+      </div>
+
+      <!-- Role, Company, Location (auto-filled) -->
       <div class="row">
         <div>
-          <label>Job Title</label>
-          <input type="text" id="titleInput" placeholder="e.g. Senior Product Manager">
+          <label for="titleOverride">Role</label>
+          <input id="titleOverride" placeholder="Auto-detected">
         </div>
         <div>
-          <label>Company</label>
-          <input type="text" id="companyInput" placeholder="e.g. Figma">
+          <label for="companyOverride">Company</label>
+          <input id="companyOverride" placeholder="Auto-detected">
         </div>
         <div>
-          <label>Job Link</label>
-          <input type="text" id="linkInput" placeholder="https://...">
+          <label for="location">Location</label>
+          <input id="location" placeholder="Auto-detected">
         </div>
       </div>
 
-      <!-- Location input -->
-      <div class="row">
-        <div>
-          <label>Location</label>
-          <input type="text" id="locationInput" placeholder="e.g. San Francisco, CA">
-        </div>
+      <!-- Advanced: salary, follow-up, notes -->
+      <div class="adv-toggle" onclick="toggleAdvanced()">
+        <i class="ti ti-chevron-down" id="advChevron" aria-hidden="true"></i> Add notes or follow-up date
       </div>
-
-      <!-- Advanced fields (salary, follow-up date, notes) - hidden by default -->
-      <div id="advancedFields" style="display: none;">
+      <div class="adv-fields" id="advFields">
         <div class="row">
           <div>
-            <label>Salary Range</label>
-            <input type="text" id="salaryInput" placeholder="e.g. $120k - $160k">
+            <label for="salary">Salary Range</label>
+            <input id="salary" placeholder="e.g., 80k-100k">
           </div>
           <div>
-            <label>Follow-up Date</label>
-            <input type="date" id="followUpInput">
+            <label for="followupDate">Follow up on</label>
+            <input id="followupDate" type="date">
           </div>
         </div>
-        <div>
-          <label>Notes</label>
-          <textarea id="notesInput" placeholder="Referrer, interview date, interesting details..." style="min-height: 60px;"></textarea>
-        </div>
+        <label for="notesField">Notes <span style="text-transform:none; font-weight:600; color:#C0B694;">(optional)</span></label>
+        <textarea id="notesField" rows="2" placeholder="Why you applied, referral, interview prep..."></textarea>
       </div>
 
-      <!-- Form action buttons -->
-      <button class="toggle-advanced" onclick="toggleAdvanced()">+ Advanced options</button>
-      <button class="add-job-btn" onclick="addJobFromDesc()">Add Job</button>
+      <button class="add-btn" onclick="addJob()"><i class="ti ti-sun" aria-hidden="true"></i>Add to the garden</button>
     </div>
 
-    <!-- Kanban Board: Three columns for job statuses -->
+    <!-- 3 Kanban columns -->
     <div class="board">
-      <!-- Column 1: Applied jobs -->
       <div class="col applied">
         <h2><span><i class="ti ti-sun" aria-hidden="true"></i> Applied</span><span class="count" id="count-applied">0</span></h2>
         <div id="col-applied"></div>
       </div>
-      
-      <!-- Column 2: Interview jobs -->
       <div class="col interview">
         <h2><span><i class="ti ti-users" aria-hidden="true"></i> Interview</span><span class="count" id="count-interview">0</span></h2>
         <div id="col-interview"></div>
       </div>
-      
-      <!-- Column 3: Rejected jobs -->
       <div class="col rejected">
         <h2><span><i class="ti ti-leaf" aria-hidden="true"></i> Rejected</span><span class="count" id="count-rejected">0</span></h2>
         <div id="col-rejected"></div>
@@ -181,48 +224,28 @@
     </div>
   </div>
 
-  <!-- ============================================
-       ANALYTICS VIEW - Charts and Data Management
-       ============================================ -->
+  <!-- ════════════════════════════════════
+       ANALYTICS VIEW — Charts + Export
+       ════════════════════════════════════ -->
   <div id="analyticsView" class="analytics-view">
-    
-    <!-- Charts grid -->
     <div class="chart-grid">
-      
-      <!-- Weekly applications bar chart -->
       <div class="chart-card">
         <h3>📊 Applications This Week</h3>
-        <div class="chart-container">
-          <canvas id="weeklyChart"></canvas>
-        </div>
+        <div class="chart-container"><canvas id="weeklyChart"></canvas></div>
       </div>
-      
-      <!-- Funnel chart: Applied vs Interviewed -->
       <div class="chart-card">
         <h3>🎯 Application Funnel</h3>
-        <div class="chart-container">
-          <canvas id="funnelChart"></canvas>
-        </div>
+        <div class="chart-container"><canvas id="funnelChart"></canvas></div>
       </div>
-      
-      <!-- Top locations pie chart -->
       <div class="chart-card">
         <h3>📍 Top Locations</h3>
-        <div class="chart-container">
-          <canvas id="locationsChart"></canvas>
-        </div>
+        <div class="chart-container"><canvas id="locationsChart"></canvas></div>
       </div>
-      
-      <!-- Status breakdown pie chart -->
       <div class="chart-card">
         <h3>📈 Status Breakdown</h3>
-        <div class="chart-container">
-          <canvas id="statusChart"></canvas>
-        </div>
+        <div class="chart-container"><canvas id="statusChart"></canvas></div>
       </div>
     </div>
-
-    <!-- Export and import data controls -->
     <div class="export-section">
       <button class="export-btn" onclick="exportData()"><i class="ti ti-download" aria-hidden="true"></i> Export as JSON</button>
       <button class="export-btn" onclick="exportCSV()"><i class="ti ti-file-text" aria-hidden="true"></i> Export as CSV</button>
@@ -233,44 +256,26 @@
 
 </div>
 
-<!-- ============================================
-     FALLING SAKURA PETALS ANIMATION
-     ============================================ -->
+<!-- ═══════════════════════════
+     FALLING SAKURA PETALS
+     ═══════════════════════════ -->
 <script>
-  // Create falling petal animation
   const petalSvg = `<svg width="34" height="34" viewBox="0 0 20 20"><path d="M10 2C13 2 14 6 10 10C6 6 7 2 10 2Z" fill="#F6B8CE" opacity="0.9"/></svg>`;
-  
-  // Generate 20 petals with randomized properties
   for (let i = 0; i < 20; i++) {
     const el = document.createElement('div');
     el.className = 'petal';
     el.innerHTML = petalSvg;
-    
-    // Random horizontal start position
     el.style.left = Math.random() * 100 + 'vw';
-    
-    // Random petal size
     const size = 22 + Math.random() * 20;
     el.style.width = size + 'px';
-    
-    // Random rotation
     el.style.transform = `rotate(${Math.random()*360}deg)`;
-    
-    // Random animation duration
     el.style.animationDuration = (11 + Math.random() * 10) + 's';
-    
-    // Random animation delay
     el.style.animationDelay = (Math.random() * 14) + 's';
-    
-    // Random horizontal drift during fall
     el.style.setProperty('--drift', (Math.random() > 0.5 ? 1 : -1) * (40 + Math.random()*70) + 'px');
-    
     document.body.appendChild(el);
   }
 </script>
 
-<!-- Load JavaScript functionality -->
 <script src="script.js"></script>
-
 </body>
 </html>
