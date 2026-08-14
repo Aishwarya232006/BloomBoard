@@ -286,6 +286,7 @@ function render() {
           ${j.location ? `<p class="location"><i class="ti ti-map-pin" aria-hidden="true"></i>${escapeHtml(j.location)}</p>` : ''}
           ${j.salary ? `<p class="salary"><i class="ti ti-currency-dollar" aria-hidden="true"></i>${escapeHtml(j.salary)}</p>` : ''}
           ${j.notes ? `<p class="notes">${escapeHtml(j.notes)}</p>` : ''}
+          ${j.resumeVersion ? `<p style="font-size: 11.5px; color: #7A9159; margin: 4px 0; display: flex; align-items: center; gap: 5px;"><i class="ti ti-file-cv" aria-hidden="true"></i>Resume: ${escapeHtml(j.resumeVersion)}</p>` : ''}
           ${j.followupDate ? `<p class="followup"><i class="ti ti-calendar-event" aria-hidden="true"></i>Follow up ${new Date(j.followupDate).toLocaleDateString()}</p>` : ''}
           ${j.link ? `<a href="${escapeHtml(j.link)}" target="_blank" rel="noopener"><i class="ti ti-external-link" aria-hidden="true"></i>View posting</a>` : ''}
           <div class="actions">
