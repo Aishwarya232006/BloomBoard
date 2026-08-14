@@ -185,21 +185,56 @@
         </div>
       </div>
 
-      <!-- Advanced: salary, follow-up, notes -->
+      <!-- Advanced: salary, job type, resume, HR contacts, notes -->
       <div class="adv-toggle" onclick="toggleAdvanced()">
-        <i class="ti ti-chevron-down" id="advChevron" aria-hidden="true"></i> Add notes or follow-up date
+        <i class="ti ti-chevron-down" id="advChevron" aria-hidden="true"></i> Add salary, resume & contact details
       </div>
       <div class="adv-fields" id="advFields">
+
+        <!-- Salary + Job Type + Follow-up -->
         <div class="row">
           <div>
             <label for="salary">Salary Range</label>
-            <input id="salary" placeholder="e.g., 80k-100k">
+            <input id="salary" placeholder="Auto-detected (e.g. $80k–$100k)">
+          </div>
+          <div>
+            <label for="jobType">Job Type</label>
+            <input id="jobType" placeholder="Auto-detected (Full-time, Contract...)">
           </div>
           <div>
             <label for="followupDate">Follow up on</label>
             <input id="followupDate" type="date">
           </div>
         </div>
+
+        <!-- Resume upload -->
+        <label>Resume Used for This Role</label>
+        <div class="resume-upload-row">
+          <button type="button" class="resume-upload-btn" onclick="document.getElementById('resumeUpload').click()">
+            <i class="ti ti-upload" aria-hidden="true"></i> Upload Resume
+          </button>
+          <span id="resumeLabel" class="resume-label">No file chosen</span>
+          <input type="file" id="resumeUpload" accept=".pdf,.doc,.docx" style="display:none">
+        </div>
+        <input id="resumeVersion" placeholder="Or type resume version name (e.g. Business Analyst v2)" style="margin-top:8px;">
+
+        <!-- HR Contacts -->
+        <div class="row" style="margin-top:14px;">
+          <div>
+            <label for="hrName">HR Contact</label>
+            <input id="hrName" placeholder="Sarah Johnson">
+          </div>
+          <div>
+            <label for="hrEmail">Email</label>
+            <input id="hrEmail" placeholder="contact@company.com" type="email">
+          </div>
+          <div>
+            <label for="hrPhone">Phone</label>
+            <input id="hrPhone" placeholder="(555) 123-4567" type="tel">
+          </div>
+        </div>
+
+        <!-- Notes -->
         <label for="notesField">Notes <span style="text-transform:none; font-weight:600; color:#C0B694;">(optional)</span></label>
         <textarea id="notesField" rows="2" placeholder="Why you applied, referral, interview prep..."></textarea>
       </div>
